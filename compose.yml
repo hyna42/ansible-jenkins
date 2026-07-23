@@ -18,6 +18,8 @@ services:
   ubuntu-target:
     image: 'ubuntu-target:v1'
     container_name: 'ubuntu-target'
+    ports:
+      - '8011:80'
     networks:
       ansible-jenkins_default:
         ipv4_address: 172.19.0.11 # fixer l'iP
