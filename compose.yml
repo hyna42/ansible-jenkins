@@ -1,9 +1,12 @@
 services:
   jenkins:
-    image: 'jenkins-ansible:v1'
-    container_name: 'jenkins'
+    build:
+      context: .
+      dockerfile: Dockerfile.jenkins
+    image: jenkins-ansible:v1
+    container_name: jenkins
     labels:
-      kompose.service.tye: nodeport
+      kompose.service.type: nodeport
     ports:
       - '8082:8080'
       - '443:8443'
@@ -11,24 +14,29 @@ services:
     volumes:
       - jenkins_data:/jenkins_home
       - jenkins:/var/jenkins_config
-      - /var/run/docker.sock:/var/run/docker.sock   # DooD
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       ansible-jenkins_default:
-         ipv4_address: 172.19.0.10 # fixer l'iP
+        ipv4_address: 172.19.0.10
+
   ubuntu-target:
-    image: 'ubuntu-target:v1'
-    container_name: 'ubuntu-target'
+    build:
+      context: .
+      dockerfile: Dockerfile.ubuntu-target
+    image: ubuntu-target:v1
+    container_name: ubuntu-target
     ports:
       - '8011:80'
     networks:
       ansible-jenkins_default:
-        ipv4_address: 172.19.0.11 # fixer l'iP
+        ipv4_address: 172.19.0.11
 
 volumes:
   jenkins_data:
     driver: local
   jenkins:
     driver: local
+
 networks:
   ansible-jenkins_default:
     external: true

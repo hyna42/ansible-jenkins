@@ -14,10 +14,12 @@ RUN echo 'root:test' | chpasswd
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
 # Créer le répertoire ou sshd stock son fichier PID
-RUN mkdir -p /run/sshd
+RUN mkdir -p /run/sshd /root/.ssh
 
 # Copier la clé publique de la machine jenkins vers la cible ubuntu-target
-COPY ./id_ed25519.pub /root/.ssh/authorized_keys 
+COPY id_ed25519.pub /root/.ssh/authorized_keys
+
+RUN chmod 600 /root/.ssh/authorized_keys
 
 # lancer ssh au démarrage du conteneur en mode détaché
 CMD ["/usr/sbin/sshd", "-D"]
