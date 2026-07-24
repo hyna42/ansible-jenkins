@@ -9,10 +9,16 @@ RUN apt-get update && apt-get install -y \
   iproute2 \
   curl \
   sshpass \
+  docker.io \
+  maven \
   && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /var/jenkins_home/.ssh && \
   ssh-keygen -t ed25519 -f /var/jenkins_home/.ssh/id_ed25519 -N "" -C "jenkins@docker" && \
   chown -R jenkins:jenkins /var/jenkins_home/.ssh
+
+# Créer le groupe docker avec le GID 984 (celui de l'hôte)
+RUN groupadd -g 984 docker-host && \
+    usermod -aG docker-host jenkins
 
 USER jenkins
