@@ -29,7 +29,7 @@ pipeline {
 
         stage('Test JMeter') {
           steps {
-            sh '/opt/jmeter/bin/jmeter -n -t tests.jmx -l results.jtl -l results.jtl'
+            sh '/opt/jmeter/bin/jmeter -n -t tests.jmx -l results.jtl -j /tmp/jmeter.log'
             sh 'cat results.jtl'
             perfReport 'results.jtl'
           }
