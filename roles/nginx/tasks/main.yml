@@ -1,5 +1,5 @@
 - name: install nginx
-  apt: 
+  apt:
     name:
       - nginx
     state: present
@@ -18,4 +18,16 @@
   template:
     src: index.html.j2
     dest: /var/www/html/index.html
+  become: yes
 
+- name: page1
+  template:
+    src: page1.html.j2
+    dest: /var/www/html/page1.html
+  become: yes
+
+- name: page2
+  template:
+    src: page2.html.j2
+    dest: /var/www/html/page2.html
+  become: yes
