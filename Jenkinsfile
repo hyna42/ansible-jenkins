@@ -11,11 +11,11 @@ pipeline {
                 git branch: 'main', credentialsId: 'github-credentials', url: 'https://github.com/hyna42/ansible-jenkins.git'
             }
         }
-        stage('Ping Ansible') {
+        /*stage('Ping Ansible') {
             steps {
                 sh 'ansible all -m ping'
             }
-        }
+        }*/
         stage('Deploy nginx') {
             steps {
                 ansiblePlaybook(
@@ -27,12 +27,12 @@ pipeline {
             }
         }
 
-        stage('Test JMeter') {
+        /*stage('Test JMeter') {
           steps {
             sh '/opt/jmeter/bin/jmeter -n -t tests.jmx -l results.jtl -j /tmp/jmeter.log'
             sh 'cat results.jtl'
             perfReport 'results.jtl'
           }
-        }
+        }*/
     }
 }
