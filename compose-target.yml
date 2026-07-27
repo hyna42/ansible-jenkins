@@ -3,23 +3,23 @@ services:
     image: 'ubuntu-target:v1'
     container_name: 'target12'
     networks:
-      ansible-jenkins_ansible-jenkins_default:
+      jenkins-ansible-docker_jadoc_net:
         ipv4_address: 172.19.0.12
 
   target13:
     image: 'ubuntu-target:v1'
     container_name: 'target13'
     networks:
-      ansible-jenkins_ansible-jenkins_default:
+      jenkins-ansible-docker_jadoc_net:
         ipv4_address: 172.19.0.13
 
   target14:
     image: 'ubuntu-target:v1'
     container_name: 'target14'
     networks:
-      ansible-jenkins_ansible-jenkins_default:
+      jenkins-ansible-docker_jadoc_net:
         ipv4_address: 172.19.0.14
 
 networks:
-  ansible-jenkins_ansible-jenkins_default:
+  jenkins-ansible-docker_jadoc_net:
     external: true
